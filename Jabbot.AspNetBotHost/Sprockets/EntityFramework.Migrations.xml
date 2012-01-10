@@ -1,0 +1,692 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EntityFramework.Migrations</name>
+    </assembly>
+    <members>
+        <member name="T:System.Data.Entity.Migrations.Resources.Strings">
+            <summary>
+               Strongly-typed and parameterized string resources.
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Strings.ArgumentIsNullOrWhitespace(System.Object)">
+            <summary>
+            A string like "The argument '{0}' cannot be null, empty or contain only white space."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Strings.PreconditionFailed(System.Object,System.Object)">
+            <summary>
+            A string like "The precondition '{0}' failed. {1}"
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Strings.MigrationsDirectoryNotFound(System.Object)">
+            <summary>
+            A string like "The specified migrations directory '{0}' does not exist. Please specify a valid directory."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Strings.ErrorsInExplicitMigration(System.Object,System.Object)">
+            <summary>
+            A string like "The specified explicit migration class '{0}' has the following errors:\r\n\r\n{1}\r\n\r\nPlease correct all errors before trying to apply this migration."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Strings.InvalidPropertiesExpression(System.Object)">
+            <summary>
+            A string like "The properties expression '{0}' is not valid. The expression should represent a property: C#: 't => t.MyProperty'  VB.Net: 'Function(t) t.MyProperty'. When specifying multiple properties use an anonymous type: C#: 't => new {{ t.MyProperty1, t.MyProperty2 }}'  VB.Net: 'Function(t) New From {{ t.MyProperty1, t.MyProperty2 }}'."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Strings.LoggingAutoMigrate(System.Object)">
+            <summary>
+            A string like "Performing automatic migration: {0}."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Strings.LoggingRevertAutoMigrate(System.Object)">
+            <summary>
+            A string like "Reverting automatic migration: {0}."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Strings.LoggingApplyMigration(System.Object)">
+            <summary>
+            A string like "Applying migration: {0}."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Strings.LoggingRevertMigration(System.Object)">
+            <summary>
+            A string like "Reverting migration: {0}."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Strings.LoggingPendingMigrations(System.Object,System.Object)">
+            <summary>
+            A string like "Found {0} pending explicit migrations: [{1}]."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Strings.MigrationNotFound(System.Object)">
+            <summary>
+            A string like "The specified target migration '{0}' does not exist. Ensure that target migration refers to an existing migration id."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Strings.PartialFkOperation(System.Object,System.Object)">
+            <summary>
+            A string like "The Foreign Key on table '{0}' with columns '{1}' could not be created because the principal key columns could not be determined. Use the AddForeignKey fluent API to fully specify the Foreign Key."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Strings.AutoNotValidTarget(System.Object)">
+            <summary>
+            A string like "'{0}' is not a valid target migration. When targeting a previously applied automatic migration, use the full migration id including timestamp."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Strings.ContextNotConstructible(System.Object)">
+            <summary>
+            A string like "The target context '{0}' is not constructible. Add a default constructor or provide an implementation of IDbContextFactory."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Strings.AmbiguousMigrationName(System.Object)">
+            <summary>
+            A string like "The specified migration name '{0}' is ambiguous. Specify the full migration id including timestamp instead."
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.Resources.Strings.AutomaticMigration">
+            <summary>
+            A string like "AutomaticMigration"
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.Resources.Strings.BootstrapMigration">
+            <summary>
+            A string like "BootstrapMigration"
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.Resources.Strings.AutomaticDataLoss">
+            <summary>
+            A string like "Automatic migration was not applied because it would result in data loss."
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.Resources.Strings.LoggingAutoMigrationBlocked">
+            <summary>
+            A string like "There are pending model changes but automatic migration is disabled. Either write these changes to an explicit migration or enable automatic migration."
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.Resources.Strings.LoggingHistoryInsert">
+            <summary>
+            A string like "[Inserting migration history record]"
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.Resources.Strings.LoggingHistoryDelete">
+            <summary>
+            A string like "[Deleting migration history record]"
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.Resources.Strings.LoggingMetadataUpdate">
+            <summary>
+            A string like "[Updating EdmMetadata model hash]"
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.Resources.Strings.LoggingSeedingDatabase">
+            <summary>
+            A string like "Adding seed data (if Seed method overridden in Migrations Settings class)."
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.Resources.Strings.UpgradingHistoryTable">
+            <summary>
+            A string like "Upgrading history table."
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.Resources.Strings.MetadataOutOfDate">
+            <summary>
+            A string like "Migrations are disabled for the target database because it is incompatible with the current model. To enable migrations, ensure the current model is compatible with the target database and execute the Update command."
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.Resources.Strings.AutomaticDisabledException">
+            <summary>
+            A string like "Unable to apply pending changes because automatic migration is disabled. To enable automatic migration, ensure that DbMigrationsConfiguration.AutomaticMigrationsEnabled is set to true."
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.Resources.Strings.ScriptingDownsNotSupported">
+            <summary>
+            A string like "Scripting the downgrade between two arbitrary migrations is currently not supported."
+            </summary>
+        </member>
+        <member name="T:System.Data.Entity.Migrations.Resources.Error">
+            <summary>
+               Strongly-typed and parameterized exception factory.
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.ArgumentIsNullOrWhitespace(System.Object)">
+            <summary>
+            ArgumentException with message like "The argument '{0}' cannot be null, empty or contain only white space."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.PreconditionFailed(System.Object,System.Object)">
+            <summary>
+            ArgumentException with message like "The precondition '{0}' failed. {1}"
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.MigrationsDirectoryNotFound(System.Object)">
+            <summary>
+            InvalidOperationException with message like "The specified migrations directory '{0}' does not exist. Please specify a valid directory."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.ErrorsInExplicitMigration(System.Object,System.Object)">
+            <summary>
+            InvalidOperationException with message like "The specified explicit migration class '{0}' has the following errors:\r\n\r\n{1}\r\n\r\nPlease correct all errors before trying to apply this migration."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.InvalidPropertiesExpression(System.Object)">
+            <summary>
+            InvalidOperationException with message like "The properties expression '{0}' is not valid. The expression should represent a property: C#: 't => t.MyProperty'  VB.Net: 'Function(t) t.MyProperty'. When specifying multiple properties use an anonymous type: C#: 't => new {{ t.MyProperty1, t.MyProperty2 }}'  VB.Net: 'Function(t) New From {{ t.MyProperty1, t.MyProperty2 }}'."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.AutomaticDataLoss">
+            <summary>
+            Infrastructure.AutomaticDataLossException with message like "Automatic migration was not applied because it would result in data loss."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.MetadataOutOfDate">
+            <summary>
+            InvalidOperationException with message like "Migrations are disabled for the target database because it is incompatible with the current model. To enable migrations, ensure the current model is compatible with the target database and execute the Update command."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.MigrationNotFound(System.Object)">
+            <summary>
+            InvalidOperationException with message like "The specified target migration '{0}' does not exist. Ensure that target migration refers to an existing migration id."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.PartialFkOperation(System.Object,System.Object)">
+            <summary>
+            InvalidOperationException with message like "The Foreign Key on table '{0}' with columns '{1}' could not be created because the principal key columns could not be determined. Use the AddForeignKey fluent API to fully specify the Foreign Key."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.AutoNotValidTarget(System.Object)">
+            <summary>
+            InvalidOperationException with message like "'{0}' is not a valid target migration. When targeting a previously applied automatic migration, use the full migration id including timestamp."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.ContextNotConstructible(System.Object)">
+            <summary>
+            InvalidOperationException with message like "The target context '{0}' is not constructible. Add a default constructor or provide an implementation of IDbContextFactory."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.AmbiguousMigrationName(System.Object)">
+            <summary>
+            InvalidOperationException with message like "The specified migration name '{0}' is ambiguous. Specify the full migration id including timestamp instead."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.AutomaticDisabledException">
+            <summary>
+            Infrastructure.AutomaticMigrationsDisabledException with message like "Unable to apply pending changes because automatic migration is disabled. To enable automatic migration, ensure that DbMigrationsConfiguration.AutomaticMigrationsEnabled is set to true."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.ScriptingDownsNotSupported">
+            <summary>
+            InvalidOperationException with message like "Scripting the downgrade between two arbitrary migrations is currently not supported."
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.ArgumentNull(System.String)">
+            <summary>
+            The exception that is thrown when a null reference (Nothing in Visual Basic) is passed to a method that does not accept it as a valid argument.
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.ArgumentOutOfRange(System.String)">
+            <summary>
+            The exception that is thrown when the value of an argument is outside the allowable range of values as defined by the invoked method.
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.NotImplemented">
+            <summary>
+            The exception that is thrown when the author has yet to implement the logic at this point in the program. This can act as an exception based TODO tag.
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Resources.Error.NotSupported">
+            <summary>
+            The exception that is thrown when an invoked method is not supported, or when there is an attempt to read, seek, or write to a stream that does not support the invoked functionality. 
+            </summary>
+        </member>
+        <member name="T:System.Data.Entity.Migrations.Resources.EntityRes">
+             <summary>
+                AutoGenerated resource class. Usage:
+            
+                    string s = EntityRes.GetString(EntityRes.MyIdenfitier);
+             </summary>
+        </member>
+        <member name="T:System.Data.Entity.Migrations.Infrastructure.MigratorBase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Infrastructure.MigratorBase.Update">
+            <summary>
+            Updates the target database to the latest migration.
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.Infrastructure.MigratorBase.Update(System.String)">
+            <summary>
+            Updates the target database to a given migration.
+            </summary>
+            <param name="targetMigration">The migration to upgrade/downgrade to.</param>
+        </member>
+        <member name="T:System.Data.Entity.Migrations.DbMigrationsConfiguration">
+            <summary>
+            Configuration relating to the use of migrations for a given model.
+            You will typically create a configuration class that derives
+            from <see cref="T:System.Data.Entity.Migrations.DbMigrationsConfiguration`1"/> rather than 
+            using this class.
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigrationsConfiguration.#ctor">
+            <summary>
+            Initializes a new instance of the DbMigrationsConfiguration class. 
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigrationsConfiguration.SetSqlGenerator(System.String,System.Data.Entity.Migrations.Sql.MigrationSqlGenerator)">
+            <summary>
+            Adds a new SQL generator to be used for a given database provider.
+            </summary>
+            <param name="providerInvariantName">Name of the database provider to set the SQL generator for.</param>
+            <param name="migrationSqlGenerator">The SQL generator to be used.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigrationsConfiguration.GetSqlGenerator(System.String)">
+            <summary>
+            Gets the SQL generator that is set to be used with a given database provider.
+            </summary>
+            <param name="providerInvariantName">Name of the database provider to get the SQL generator for.</param>
+            <returns>The SQL generator that is set for the database provider.</returns>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.DbMigrationsConfiguration.AutomaticMigrationsEnabled">
+            <summary>
+            Gets or sets a value indicating if automatic migrations can be used when migration the database.
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.DbMigrationsConfiguration.AutomaticMigrationDataLossAllowed">
+            <summary>
+            Gets or sets a value indicating if data loss is acceptable during automatic migration.
+            If set to false an exception will be thrown if data loss may occur as part of an automatic migration.
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.DbMigrationsConfiguration.ConnectionStringName">
+            <summary>
+            Gets or sets a value indicating the name of a connection string to
+            use from the configuration file.
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.DbMigrationsConfiguration.ConnectionProviderName">
+            <summary>
+            Gets or sets a value indicating the database provider to be used. 
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.DbMigrationsConfiguration.ContextType">
+            <summary>
+            Gets or sets the derived DbContext representing the model to be migrated.
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.DbMigrationsConfiguration.ConnectionString">
+            <summary>
+            Gets or sets the connection string of the database to be migrated. 
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.DbMigrationsConfiguration.MigrationsNamespace">
+            <summary>
+            Gets or sets the namespace used for code-based migrations.
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.DbMigrationsConfiguration.CodeGenerator">
+            <summary>
+            Gets or sets the code generator to be used when scaffolding migrations.
+            </summary>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.DbMigrationsConfiguration.MigrationsAssembly">
+            <summary>
+            Gets or sets the assembly containing code-based migrations.
+            </summary>
+        </member>
+        <member name="T:System.Data.Entity.Migrations.DbMigrationsConfiguration`1">
+            <summary>
+            Configuration relating to the use of migrations for a given model.
+            </summary>
+            <typeparam name="TContext">The context representing the model that this configuration applies to.</typeparam>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigrationsConfiguration`1.#ctor">
+            <summary>
+            Initializes a new instance of the DbMigrationsConfiguration class. 
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigrationsConfiguration`1.Seed(`0)">
+            <summary>
+            Runs after upgrading to the latest migration to allow seed data to be updated.
+            </summary>
+            <param name="context">Context to be used for updating seed data.</param>
+        </member>
+        <member name="T:System.Data.Entity.Migrations.DbMigration">
+            <summary>
+            Base class for code-based migrations.
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.Up">
+            <summary>
+            Operations to be performed during the upgrade process.
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.Down">
+            <summary>
+            Operations to be performed during the downgrade process.
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.CreateTable``1(System.String,System.Func{System.Data.Entity.Migrations.Builders.ColumnBuilder,``0},System.Object)">
+            <summary>
+            Adds an operation to create a new table.
+            </summary>
+            <typeparam name="TColumns">
+            The columns in this create table operation. 
+            You do not need to specify this type, it will be inferred from the columnsAction parameter you supply.
+            </typeparam>
+            <param name="name">The name of the table. Schema name is optional, if no schema is specified then dbo is assumed.</param>
+            <param name="columnsAction">
+            An action that specifies the columns to be included in the table.
+            i.e. t => new { Id = t.Int(identity: true), Name = t.String() }</param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+            <returns>An object that allows further configuration of the table creation operation.</returns>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.AddForeignKey(System.String,System.String,System.String,System.String,System.Boolean,System.String,System.Object)">
+            <summary>
+            Adds an operation to create a new foreign key constraint.
+            </summary>
+            <param name="dependentTable">
+            The table that contains the foreign key column.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="dependentColumn">The foreign key column.</param>
+            <param name="principalTable">
+            The table that contains the column this foreign key references.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="principalColumn">
+            The column this foreign key references. 
+            If no value is supplied the primary key of the principal table will be referenced.
+            </param>
+            <param name="cascadeDelete">
+            A value indicating if cascade delete should be configured for the foreign key relationship.
+            If no value is supplied, cascade delete will be off.
+            </param>
+            <param name="name">
+            The name of the foreign key constraint in the database.
+            If no value is supplied a unique name will be generated.
+            </param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.AddForeignKey(System.String,System.String[],System.String,System.String[],System.Boolean,System.String,System.Object)">
+            <summary>
+            Adds an operation to create a new foreign key constraint.
+            </summary>
+            <param name="dependentTable">
+            The table that contains the foreign key columns.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="dependentColumns">The foreign key columns.</param>
+            <param name="principalTable">
+            The table that contains the columns this foreign key references.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="principalColumns">
+            The columns this foreign key references. 
+            If no value is supplied the primary key of the principal table will be referenced.
+            </param>
+            <param name="cascadeDelete">
+            A value indicating if cascade delete should be configured for the foreign key relationship.
+            If no value is supplied, cascade delete will be off.
+            </param>
+            <param name="name">
+            The name of the foreign key constraint in the database.
+            If no value is supplied a unique name will be generated.
+            </param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.DropForeignKey(System.String,System.String,System.Object)">
+            <summary>
+            Adds an operation to drop a foreign key constraint based on its name.
+            </summary>
+            <param name="dependentTable">
+            The table that contains the foreign key column.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="name">The name of the foreign key constraint in the database.</param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.DropForeignKey(System.String,System.String,System.String,System.String,System.Object)">
+            <summary>
+            Adds an operation to drop a foreign key constraint based on the column it targets.
+            </summary>
+            <param name="dependentTable">
+            The table that contains the foreign key column.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="dependentColumn">The foreign key column.</param>
+            <param name="principalTable">
+            The table that contains the column this foreign key references.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="principalColumn">The columns this foreign key references.</param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.DropForeignKey(System.String,System.String[],System.String,System.String[],System.Object)">
+            <summary>
+            Adds an operation to drop a foreign key constraint based on the columns it targets.
+            </summary>
+            <param name="dependentTable">
+            The table that contains the foreign key columns.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="dependentColumns">The foreign key columns.</param>
+            <param name="principalTable">
+            The table that contains the columns this foreign key references.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="principalColumns">The columns this foreign key references.</param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.DropTable(System.String,System.Object)">
+            <summary>
+            Adds an operation to drop a table.
+            </summary>
+            <param name="name">
+            The name of the table to be dropped.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.MoveTable(System.String,System.String,System.Object)">
+            <summary>
+            Adds an operation to move a table to a new schema.
+            </summary>
+            <param name="name">
+            The name of the table to be moved.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="newSchema">The schema the table is to be moved to.</param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.RenameTable(System.String,System.String,System.Object)">
+            <summary>
+            Adds an operation to rename a table. To change the schema of a table use MoveTable
+            </summary>
+            <param name="name">
+            The name of the table to be renamed.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="newName">
+            The new name for the table.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.RenameColumn(System.String,System.String,System.String,System.Object)">
+            <summary>
+            Adds an operation to rename a column.
+            </summary>
+            <param name="table">
+            The name of the table that contains the column to be renamed.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="name">The name of the column to be renamed.</param>
+            <param name="newName">The new name for the column.</param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.AddColumn(System.String,System.String,System.Func{System.Data.Entity.Migrations.Builders.ColumnBuilder,System.Data.Entity.Migrations.Model.ColumnModel},System.Object)">
+            <summary>
+            Adds an operation to add a column to an existing table.
+            </summary>
+            <param name="table">
+            The name of the table to add the column to.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="name">
+            The name of the column to be added.
+            </param>
+            <param name="columnAction">
+            An action that specifies the column to be added.
+            i.e. c => c.Int(nullable: false, defaultValue: 3)
+            </param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.DropColumn(System.String,System.String,System.Object)">
+            <summary>
+            Adds an operation to drop an existing column.
+            </summary>
+            <param name="table">
+            The name of the table to drop the column from.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="name">The name of the column to be dropped.</param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.AlterColumn(System.String,System.String,System.Func{System.Data.Entity.Migrations.Builders.ColumnBuilder,System.Data.Entity.Migrations.Model.ColumnModel},System.Object)">
+            <summary>
+            Adds an operation to alter the definition of an existing column.
+            </summary>
+            <param name="table">
+            The name of the table the column exists in.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="name">The name of the column to be changed.</param>
+            <param name="columnAction">
+            An action that specifies the new definition for the column.
+            i.e. c => c.String(nullable: false, defaultValue: "none")
+            </param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.CreateIndex(System.String,System.String,System.Boolean,System.String,System.Object)">
+            <summary>
+            Adds an operation to create an index on a single column.
+            </summary>
+            <param name="table">
+            The name of the table to create the index on.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="column">The name of the column to create the index on.</param>
+            <param name="unique">
+            A value indicating if this is a unique index.
+            If no value is supplied a non-unique index will be created.
+            </param>
+            <param name="name">
+            The name to use for the index in the database.
+            If no value is supplied a unique name will be generated.
+            </param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.CreateIndex(System.String,System.String[],System.Boolean,System.String,System.Object)">
+            <summary>
+            Adds an operation to create an index on multiple columns.
+            </summary>
+            <param name="table">
+            The name of the table to create the index on.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="columns">The name of the columns to create the index on.</param>
+            <param name="unique">
+            A value indicating if this is a unique index.
+            If no value is supplied a non-unique index will be created.
+            </param>
+            <param name="name">
+            The name to use for the index in the database.
+            If no value is supplied a unique name will be generated.
+            </param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.DropIndex(System.String,System.String,System.Object)">
+            <summary>
+            Adds an operation to drop an index based on its name.
+            </summary>
+            <param name="table">
+            The name of the table to drop the index from.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="name">The name of the index to be dropped.</param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.DropIndex(System.String,System.String[],System.Object)">
+            <summary>
+            Adds an operation to drop an index based on the columns it targets.
+            </summary>
+            <param name="table">
+            The name of the table to drop the index from.
+            Schema name is optional, if no schema is specified then dbo is assumed.
+            </param>
+            <param name="columns">The name of the column(s) the index targets.</param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigration.Sql(System.String,System.Boolean,System.Object)">
+            <summary>
+            Adds an operation to execute a SQL command.
+            </summary>
+            <param name="sql">The SQL to be executed.</param>
+            <param name="suppressTransaction">
+            A value indicating if the SQL should be executed outside of the 
+            transaction being used for the migration process.
+            If no value is supplied the SQL will be executed within the transaction.
+            </param>
+            <param name="anonymousArguments">Additional arguments to be passed to the provider.</param>
+        </member>
+        <member name="T:System.Data.Entity.Migrations.Utilities.RuntimeFailureMethods">
+            <summary>
+                Code Contracts hook methods - Called when contracts fail. Here we detect the most common preconditions
+                so we can throw the correct exceptions. It also means that we can write preconditions using the
+                simplest Contract.Requires() form.
+            </summary>
+        </member>
+        <member name="T:System.Data.Entity.Migrations.DbMigrator">
+            <summary>
+            DbMigrator is used to apply existing migrations to a database. 
+            DbMigrator can be used to upgrade and downgrade to any given migration.
+            To scaffold migrations based on changes to your model use <see cref="T:System.Data.Entity.Migrations.Design.MigrationScaffolder"/>
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigrator.#ctor(System.Data.Entity.Migrations.DbMigrationsConfiguration)">
+            <summary>
+            Initializes a new instance of the DbMigrator class.
+            </summary>
+            <param name="configuration">Configuration to be used for the migration process.</param>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigrator.GetLocalMigrations">
+            <summary>
+            Gets all migrations that are defined in the configured migrations assembly.
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigrator.GetDatabaseMigrations">
+            <summary>
+            Gets all migrations that have been applied to the target database.
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigrator.GetPendingMigrations">
+            <summary>
+            Gets all migrations that are defined in the assembly but haven't been applied to the target database.
+            </summary>
+        </member>
+        <member name="M:System.Data.Entity.Migrations.DbMigrator.Update(System.String)">
+            <summary>
+            Updates the target database to a given migration.
+            </summary>
+            <param name="targetMigration">The migration to upgrade/downgrade to.</param>
+        </member>
+        <member name="P:System.Data.Entity.Migrations.DbMigrator.Configuration">
+            <summary>
+            Gets the configuration that is being used for the migration process.
+            </summary>
+        </member>
+    </members>
+</doc>
