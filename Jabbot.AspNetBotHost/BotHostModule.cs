@@ -22,7 +22,8 @@ namespace Jabbot.AspNetBotHost
 
         public BotHostModule()
         {
-            StartBot();
+            if (_bot == null)
+                StartBot();
             Get["/"] = _ =>
             {
                 return "Jabbot AspNet Nancy Bot Runner";
@@ -68,7 +69,7 @@ namespace Jabbot.AspNetBotHost
         {
             return;
             new Moment(_momentApiKey).ScheduleJob(new Job()
-            {   
+            {
                 at = DateTime.Now.AddMinutes(5),
                 method = "GET",
                 uri = new Uri(Url)
@@ -77,6 +78,7 @@ namespace Jabbot.AspNetBotHost
 
         private static void StartBot()
         {
+
             if (!_hostBaseUrl.Contains("localhost"))
             {
                 if (!Uri.IsWellFormedUriString(_hostBaseUrl, UriKind.Absolute))
@@ -93,7 +95,7 @@ namespace Jabbot.AspNetBotHost
             }
             _bot = new Bot(_serverUrl, _botName, _botPassword);
             _bot.PowerUp();
-            
+
             JoinRooms(_bot);
 
         }
