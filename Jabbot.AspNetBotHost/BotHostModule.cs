@@ -35,7 +35,7 @@ namespace Jabbot.AspNetBotHost
                 }
                 catch (Exception e)
                 {
-                    return e.Message;
+                    return e.GetBaseException().ToString();
                 }
             };
 
