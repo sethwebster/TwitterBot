@@ -77,7 +77,7 @@ namespace Jabbot.AspNetBotHost
         {
             if (!_hostBaseUrl.Contains("localhost"))
             {
-                ScheduleKeepAlive(_hostBaseUrl + "/keepalive");
+                //ScheduleKeepAlive(_hostBaseUrl + "/keepalive");
             }
             if (_bot != null)
             {
