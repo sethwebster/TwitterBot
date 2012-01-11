@@ -57,7 +57,7 @@ namespace Jabbot.AspNetBotHost
             // We create a task with MomentApp (TBD whether we will use this permanently
             Get["/keepalive"] = _ =>
             {
-                ScheduleKeepAlive(Request.Url.ToString());
+                ScheduleKeepAlive(_hostBaseUrl + "/keepalive");
                 return "OK";
             };
         }
@@ -66,6 +66,7 @@ namespace Jabbot.AspNetBotHost
 
         private static void ScheduleKeepAlive(string Url)
         {
+            return;
             new Moment(_momentApiKey).ScheduleJob(new Job()
             {   
                 at = DateTime.Now.AddMinutes(5),
@@ -92,6 +93,7 @@ namespace Jabbot.AspNetBotHost
             }
             _bot = new Bot(_serverUrl, _botName, _botPassword);
             _bot.PowerUp();
+            
             JoinRooms(_bot);
 
         }
