@@ -21,7 +21,7 @@ namespace Jabbot.AspNetBotHost
 
         public BotHostModule()
         {
-            StartBot();
+          //  StartBot();
             Get["/"] = _ =>
             {
                 return "Jabbot AspNet Nancy Bot Runner";
