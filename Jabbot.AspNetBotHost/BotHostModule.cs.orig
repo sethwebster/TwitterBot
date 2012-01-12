@@ -54,9 +54,33 @@ namespace Jabbot.AspNetBotHost
 
 
 
+<<<<<<< HEAD
+        private static void ScheduleKeepAlive(string Url)
+        {
+            return;
+            new Moment(_momentApiKey).ScheduleJob(new Job()
+            {
+                at = DateTime.Now.AddMinutes(5),
+                method = "GET",
+                uri = new Uri(Url)
+            });
+        }
+
         private static void StartBot()
         {
 
+            if (!_hostBaseUrl.Contains("localhost"))
+            {
+                if (!Uri.IsWellFormedUriString(_hostBaseUrl, UriKind.Absolute))
+                    throw new InvalidOperationException("The Application.HostBaseUrl is not well formed.  Check the configuration settings.");
+                Task.Factory.StartNew(() =>
+                {
+                    ScheduleKeepAlive(_hostBaseUrl + "/keepalive");
+                });
+=======
+        private static void StartBot()
+        {
+>>>>>>> c89506f6330a53f98e0b4170bda3a36957a80185
 
             KeepAliveModule.ScheduleKeepAlive();
             if (_bot != null)
