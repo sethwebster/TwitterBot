@@ -39,6 +39,10 @@
       <HintPath>..\packages\elmah.corelibrary.1.2.1\lib\Elmah.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="MomentApp">
       <HintPath>..\packages\MomentApp.0.0.2\lib\MomentApp.dll</HintPath>
     </Reference>
@@ -48,8 +52,18 @@
     <Reference Include="Nancy.Hosting.Aspnet">
       <HintPath>..\packages\Nancy.Hosting.Aspnet.0.9.0\lib\net40\Nancy.Hosting.Aspnet.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.0.5.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.4.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Nancy.ViewEngines.Razor">
+      <HintPath>..\packages\Nancy.Viewengines.Razor.0.9.0\lib\net40\Nancy.ViewEngines.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.0.8.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.4.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SignalR">
+      <HintPath>..\packages\SignalR.Server.0.4.0.0\lib\net40\SignalR.dll</HintPath>
+    </Reference>
+    <Reference Include="SignalR.Hosting.AspNet">
+      <HintPath>..\packages\SignalR.Hosting.AspNet.0.4.0.0\lib\net40\SignalR.Hosting.AspNet.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -59,6 +73,10 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Nancy.Viewengines.Razor.0.9.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -69,30 +87,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Readme\MomentApp.Readme.txt" />
-    <Content Include="Sprockets\EntityFramework.CodeFirst.TestHelpers.dll" />
-    <Content Include="Sprockets\EntityFramework.dll" />
-    <Content Include="Sprockets\EntityFramework.Migrations.dll" />
-    <Content Include="Sprockets\EntityFramework.Migrations.xml" />
-    <Content Include="Sprockets\EntityFramework.xml" />
-    <Content Include="Sprockets\Hammock.ClientProfile.dll" />
-    <Content Include="Sprockets\Hammock.ClientProfile.pdb" />
-    <Content Include="Sprockets\Hammock.dll" />
-    <Content Include="Sprockets\Hammock.pdb" />
-    <Content Include="Sprockets\Jabbot.CommandSprockets.dll" />
-    <Content Include="Sprockets\Jabbot.CommandSprockets.pdb" />
-    <Content Include="Sprockets\Jabbot.dll" />
-    <Content Include="Sprockets\Jabbot.pdb" />
-    <Content Include="Sprockets\Jabbot.TwitterNotifierSprocket.dll" />
-    <Content Include="Sprockets\Jabbot.TwitterNotifierSprocket.pdb" />
-    <Content Include="Sprockets\Newtonsoft.Json.dll" />
-    <Content Include="Sprockets\Newtonsoft.Json.pdb" />
-    <Content Include="Sprockets\Newtonsoft.Json.xml" />
-    <Content Include="Sprockets\SignalR.Client.dll" />
-    <Content Include="Sprockets\TweetSharp.dll" />
-    <Content Include="Sprockets\TweetSharp.pdb" />
-    <Content Include="Sprockets\WebActivator.dll" />
-    <Content Include="Sprockets\WebActivator.pdb" />
-    <Content Include="Web.config" />
+    <Content Include="Scripts\jquery-1.6.4-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.6.4.js" />
+    <Content Include="Scripts\jquery-1.6.4.min.js" />
+    <Content Include="Scripts\jquery.signalR.js" />
+    <Content Include="Scripts\jquery.signalR.min.js" />
+    <Content Include="views\index.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -104,6 +107,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="BotHostModule.cs" />
     <Compile Include="KeepAliveModule.cs" />
+    <Compile Include="MainModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -114,9 +118,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Sprockets\Jabbot.TwitterNotifierSprocket.dll.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
