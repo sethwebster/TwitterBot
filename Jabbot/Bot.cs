@@ -135,7 +135,7 @@ namespace Jabbot
                 client.Connect(Name, _password).ContinueWith(task =>
                 {
                     LogOnInfo info = task.Result;
-                    IntializeSprockets();
+                  //  IntializeSprockets();
                 }).Wait();
                 isActive = true;
             }
