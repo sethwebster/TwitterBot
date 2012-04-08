@@ -101,8 +101,16 @@
     <Content Include="Sprockets\Hammock.ClientProfile.pdb" />
     <Content Include="Sprockets\Hammock.dll" />
     <Content Include="Sprockets\Hammock.pdb" />
+    <Content Include="Sprockets\Jabbot.CommandSprockets.dll" />
+    <Content Include="Sprockets\Jabbot.CommandSprockets.pdb" />
+    <Content Include="Sprockets\Jabbot.dll" />
+    <Content Include="Sprockets\Jabbot.pdb" />
     <Content Include="Sprockets\Jabbot.TwitterNotifierSprocket.dll" />
     <Content Include="Sprockets\Jabbot.TwitterNotifierSprocket.pdb" />
+    <Content Include="Sprockets\Newtonsoft.Json.dll" />
+    <Content Include="Sprockets\Newtonsoft.Json.pdb" />
+    <Content Include="Sprockets\Newtonsoft.Json.xml" />
+    <Content Include="Sprockets\SignalR.Client.dll" />
     <Content Include="Sprockets\TweetSharp.dll" />
     <Content Include="Sprockets\TweetSharp.pdb" />
     <Content Include="Sprockets\WebActivator.dll" />
