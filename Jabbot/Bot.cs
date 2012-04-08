@@ -287,7 +287,7 @@ namespace Jabbot
         }
 
 
-        private void ProcessMessage(Message message, string room)
+        public void ProcessMessage(Message message, string room)
         {
             // Run this on another thread since the signalr client doesn't like it
             // when we spend a long time processing messages synchronously

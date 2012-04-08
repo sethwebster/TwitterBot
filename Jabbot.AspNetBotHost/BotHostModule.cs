@@ -7,6 +7,7 @@ using Nancy;
 using System.Diagnostics;
 using MomentApp;
 using System.Threading.Tasks;
+using JabbR.Client.Models;
 
 namespace Jabbot.AspNetBotHost
 {
@@ -17,7 +18,8 @@ namespace Jabbot.AspNetBotHost
         private static readonly string _botPassword = ConfigurationManager.AppSettings["Bot.Password"];
         private static readonly string _botRooms = ConfigurationManager.AppSettings["Bot.RoomList"];
         private static Bot _bot;
-        public BotHostModule() : base("bot")
+        public BotHostModule()
+            : base("bot")
         {
             if (_bot == null)
                 StartBot();
@@ -46,8 +48,34 @@ namespace Jabbot.AspNetBotHost
                     return e.Message;
                 }
             };
+
+            Get["/message"] = _ =>
+            {
+                try
+                {
+                    SimulateMessage();
+                    return "Message Simulated";
+                }
+                catch (Exception e)
+                {
+                    var ex = e;
+                    while (ex.InnerException != null)
+                        ex = ex.InnerException;
+                    return ex.ToString();
+                }
+            };
         }
 
+        private static void SimulateMessage()
+        {
+            _bot.ProcessMessage(new Message()
+            {
+                Content = "@twitterbot?",
+                Id = Guid.NewGuid().ToString(),
+                User = new JabbR.Client.Models.User() { Name = "sethwebster" },
+                When = DateTimeOffset.Now
+            }, "twitterbot-admin");
+        }
 
 
         private static void StartBot()
