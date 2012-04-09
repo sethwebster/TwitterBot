@@ -38,8 +38,15 @@ namespace Jabbot
             Name = name;
             _password = password;
             _url = url;
+            TaskScheduler.UnobservedTaskException += new EventHandler<UnobservedTaskExceptionEventArgs>(TaskScheduler_UnobservedTaskException);
             //_connection = new HubConnection(url);
             //_chat = _connection.CreateProxy("JabbR.Chat");
+        }
+
+        void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            Elmah.ErrorSignal.FromCurrentContext().Raise(e.Exception);
+            e.SetObserved();
         }
 
         public string Name { get; private set; }
