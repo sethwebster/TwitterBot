@@ -130,7 +130,7 @@ namespace Jabbot
 
                 client.MessageReceived += (message, room) =>
                 {
-                    ProcessMessage(message, room);
+                    //ProcessMessage(message, room);
                 };
 
                 client.UserJoined += (user, message) =>
