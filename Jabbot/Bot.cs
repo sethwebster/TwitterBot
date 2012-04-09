@@ -44,8 +44,7 @@ namespace Jabbot
         }
 
         void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
-        {
-            Elmah.ErrorSignal.FromCurrentContext().Raise(e.Exception);
+        {           
             e.SetObserved();
         }
 
