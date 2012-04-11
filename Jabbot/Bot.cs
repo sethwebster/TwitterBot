@@ -104,13 +104,13 @@ namespace Jabbot
                     if (!task.IsFaulted)
                     {
                         LogOnInfo info = task.Result;
-                       // IntializeSprockets();
+                        // IntializeSprockets();
                     }
                     else
                     {
                         Elmah.ErrorSignal.FromCurrentContext().Raise(task.Exception);
                     }
-                }).Wait();
+                });
                 _isActive = true;
             }
             else
