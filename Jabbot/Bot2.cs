@@ -29,6 +29,7 @@ namespace Jabbot
             client.MessageReceived += (message, room) =>
             {
                 Console.WriteLine("{0} {1} {2}", room, message.Content, message.User.Name);
+                client.Send("Received " + message.Content + " from " + message.User.Name + " in " + room, room);
             };
 
 
