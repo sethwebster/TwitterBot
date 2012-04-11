@@ -98,10 +98,10 @@
     <Content Include="Scripts\jquery-1.6.4.min.js" />
     <Content Include="Scripts\jquery.signalR.js" />
     <Content Include="Scripts\jquery.signalR.min.js" />
-    <Content Include="views\index.html" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
+    <Content Include="Sprockets\Hammock.ClientProfile.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Sprockets\Hammock.ClientProfile.pdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sprockets\Hammock.dll">
@@ -114,18 +114,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sprockets\Jabbot.TwitterNotifierSprocket.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprockets\Newtonsoft.Json.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprockets\Newtonsoft.Json.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprockets\Newtonsoft.Json.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprockets\SignalR.Client.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sprockets\TweetSharp.dll">
@@ -159,10 +147,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Jabbot.CommandSprockets\Jabbot.CommandSprockets.csproj">
-      <Project>{FB5CE3F1-1575-440B-A6E9-4E5AFED35D8B}</Project>
-      <Name>Jabbot.CommandSprockets</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Jabbot\Jabbot.csproj">
       <Project>{478BFCF7-9397-49A7-AFD4-060B6B749E77}</Project>
       <Name>Jabbot</Name>
@@ -171,8 +155,8 @@
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Sprockets\" />
     <Content Include="Sprockets\Jabbot.TwitterNotifierSprocket.dll.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
