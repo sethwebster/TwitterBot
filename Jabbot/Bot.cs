@@ -46,7 +46,7 @@ namespace Jabbot
 
         private void InitializeClient()
         {
-            client = new JabbRClient(_url);
+            client = new JabbRClient(_url, new LongPollingTransport());
             client.MessageReceived += (message, room) =>
             {
                 ProcessMessage(message, room);
