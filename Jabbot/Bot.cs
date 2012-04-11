@@ -110,7 +110,7 @@ namespace Jabbot
                     {
                         Elmah.ErrorSignal.FromCurrentContext().Raise(task.Exception);
                     }
-                });
+                }).Wait();
                 _isActive = true;
             }
             else
