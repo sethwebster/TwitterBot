@@ -65,6 +65,9 @@
     <Reference Include="SignalR">
       <HintPath>..\packages\SignalR.Server.0.4.0.0\lib\net40\SignalR.dll</HintPath>
     </Reference>
+    <Reference Include="SignalR.Client, Version=0.4.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SignalR.Client.0.4.0.2\lib\net40\SignalR.Client.dll</HintPath>
+    </Reference>
     <Reference Include="SignalR.Hosting.AspNet">
       <HintPath>..\packages\SignalR.Hosting.AspNet.0.4.0.0\lib\net40\SignalR.Hosting.AspNet.dll</HintPath>
     </Reference>
@@ -95,10 +98,10 @@
     <Content Include="Scripts\jquery-1.6.4.min.js" />
     <Content Include="Scripts\jquery.signalR.js" />
     <Content Include="Scripts\jquery.signalR.min.js" />
-    <Content Include="Sprockets\Hammock.ClientProfile.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <Content Include="views\index.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
     </Content>
-    <Content Include="Sprockets\Hammock.ClientProfile.pdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sprockets\Hammock.dll">
@@ -168,8 +171,8 @@
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <Folder Include="Sprockets\" />
     <Content Include="Sprockets\Jabbot.TwitterNotifierSprocket.dll.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
