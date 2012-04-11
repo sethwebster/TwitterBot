@@ -113,12 +113,6 @@
     <Content Include="Sprockets\Jabbot.CommandSprockets.pdb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sprockets\Jabbot.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sprockets\Jabbot.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Sprockets\Jabbot.TwitterNotifierSprocket.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
