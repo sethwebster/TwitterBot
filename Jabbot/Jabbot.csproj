@@ -59,7 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bot.cs" />
-    <Compile Include="Bot2.cs" />
+    <Compile Include="Core\IBot.cs" />
     <Compile Include="Models\ChatMessage.cs" />
     <Compile Include="Models\ChatUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -67,6 +67,7 @@
     <Compile Include="Sprockets\Core\ISprocket.cs" />
     <Compile Include="Sprockets\Core\ISprocketInitializer.cs" />
     <Compile Include="Sprockets\Core\IUnhandledMessageSprocket.cs" />
+    <Compile Include="Sprockets\ListSprocketsSprocket.cs" />
     <Compile Include="Sprockets\RegexSprocket.cs" />
   </ItemGroup>
   <ItemGroup>

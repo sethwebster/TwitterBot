@@ -1,35 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition.Hosting;
-using System.ComponentModel.Composition.Primitives;
-using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Threading.Tasks;
-using System.Web.Hosting;
-using Jabbot.Models;
-using Jabbot.Sprockets.Core;
-using SignalR.Client.Hubs;
-using SignalR.Client.Transports;
+using System.Linq;
+using System.Text;
 using JabbR.Client;
+using Jabbot.Core;
+using System.ComponentModel.Composition.Primitives;
+using System.ComponentModel.Composition.Hosting;
 using JabbR.Client.Models;
+using Jabbot.Sprockets.Core;
+using System.IO;
+using System.Web.Hosting;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using Jabbot.Models;
+using System.Reflection;
 
 namespace Jabbot
 {
-    public class Bot
+    public class Bot : IBot
     {
-        private readonly string _password;
-        private readonly string _url;
+
+        private const string ExtensionsFolder = "Sprockets";
+
+        private readonly string _password = string.Empty;
+        private readonly string _url = string.Empty;
+        private JabbRClient _client;
+
         private readonly List<ISprocket> _sprockets = new List<ISprocket>();
         private readonly List<IUnhandledMessageSprocket> _unhandledMessageSprockets = new List<IUnhandledMessageSprocket>();
         private readonly HashSet<string> _rooms = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-        private const string ExtensionsFolder = "Sprockets";
+        internal List<ISprocket> Sprockets
+        {
+            get
+            {
+                return _sprockets;
+            }
+        }
 
         private ComposablePartCatalog _catalog = null;
         private CompositionContainer _container = null;
-
-        JabbRClient client;
 
         private bool _isActive = false;
         private bool _containerInitialized = false;
@@ -37,238 +47,93 @@ namespace Jabbot
         public Bot(string url, string name, string password)
         {
             Name = name;
-            _password = password;
             _url = url;
-            TaskScheduler.UnobservedTaskException += new EventHandler<UnobservedTaskExceptionEventArgs>(TaskScheduler_UnobservedTaskException);
+            _password = password;
+
             InitializeClient();
+            CreateCompositionContainer();
             InitializeContainer();
         }
 
         private void InitializeClient()
         {
-            client = new JabbRClient(_url, new LongPollingTransport());
-            client.MessageReceived += (message, room) =>
+            _client = new JabbRClient(_url);
+
+            _client.MessageReceived += (message, room) =>
             {
                 ProcessMessage(message, room);
             };
-
-            client.UserJoined += (user, message) =>
-            {
-
-            };
-
-        }
-
-        void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
-        {
-            e.SetObserved();
         }
 
         public string Name { get; private set; }
 
-        public ICredentials Credentials
+        public System.Net.ICredentials Credentials
         {
-            get
-            {
-                return client.Credentials;
-            }
-            set
-            {
-                client.Credentials = value;
-            }
+            get { throw new NotImplementedException(); }
         }
 
         public event Action Disconnected
         {
             add
             {
-                client.Disconnected += value;
+                _client.Disconnected += value;
             }
             remove
             {
-                client.Disconnected -= value;
+                _client.Disconnected -= value;
             }
         }
 
-        public event Action<ChatMessage> MessageReceived;
+        public event Action<Message, string> MessageReceived;
 
-        /// <summary>
-        /// Connects to the chat session
-        /// </summary>
-        public void PowerUp()
+        public void StartUp()
         {
-            if (!_isActive)
+            _client.Connect(Name, _password).ContinueWith(task =>
             {
-                client.Connect(Name, _password).ContinueWith(task =>
+                if (!task.IsFaulted)
                 {
-                    if (!task.IsFaulted)
-                    {
-                        LogOnInfo info = task.Result;
-                        IntializeSprockets();
-                    }
-                    else
-                    {
-                        Elmah.ErrorSignal.FromCurrentContext().Raise(task.Exception);
-                    }
-                }).Wait();
-                _isActive = true;
-            }
-            else
-            {
-                throw new InvalidOperationException("Bot is already powered up. Call ShutDown first");
-            }
-            //if (!_connection.IsActive)
-            //{
-            //    InitializeContainer();
-
-            //    _chat.On<dynamic, string>("addMessage", ProcessMessage);
-
-            //    _chat.On("leave", OnLeave);
-
-            //    _chat.On("addUser", OnJoin);
-
-            //    _chat.On<IEnumerable<string>>("logOn", OnLogOn);
-
-            //    // Start the connection and wait
-
-            //    _connection.Start(new AutoTransport()).Wait();
-
-            //    // Join the chat
-            //    var success = _chat.Invoke<bool>("Join").Result;
-
-            //    if (!success)
-            //    {
-            //        // Setup the name of the bot
-            //        Send(String.Format("/nick {0} {1}", Name, _password));
-
-            //        IntializeSprockets();
-            //    }
-            //}
+                    _client.JoinRoom("twitterbot");
+                }
+                else
+                {
+                    Console.WriteLine(task.Exception);
+                }
+            }).Wait();
         }
 
-        /// <summary>
-        /// Creates a new room
-        /// </summary>
-        /// <param name="room">room to create</param>
-        public void CreateRoom(string room)
-        {
-            client.JoinRoom(room);
-            // Add the room to the list
-            _rooms.Add(room);
-        }
-
-        /// <summary>
-        /// Joins a chat room. Changes this to the active room for future messages.
-        /// </summary>
-        public void Join(string room)
-        {
-            client.JoinRoom(room);
-
-            // Add the room to the list
-            _rooms.Add(room);
-        }
-
-        ///// <summary>
-        ///// Sets the Bot's gravatar email
-        ///// </summary>
-        ///// <param name="gravatarEmail"></param>
-        //public void Gravatar(string gravatarEmail)
-        //{
-        //    client.
-        //    Send("/gravatar " + gravatarEmail);
-        //}
-
-
-        /// <summary>
-        /// Say something to the active room.
-        /// </summary>
-        /// <param name="what">what to say</param>
-        /// <param name="room">the room to say it to</param>
-        public void Say(string what, string room)
-        {
-            if (what == null)
-            {
-                throw new ArgumentNullException("what");
-            }
-
-            if (what.StartsWith("/"))
-            {
-                throw new InvalidOperationException("Commands are not allowed");
-            }
-
-            if (string.IsNullOrWhiteSpace(room))
-            {
-                throw new ArgumentNullException("room");
-            }
-            client.Send(what, room);
-        }
-
-        /// <summary>
-        /// Reply to someone
-        /// </summary>
-        /// <param name="who">the person you want the bot to reply to</param>
-        /// <param name="what">what you want the bot to say</param>
-        /// <param name="room">the room to say it to</param>
-        public void Reply(string who, string what, string room)
-        {
-            if (who == null)
-            {
-                throw new ArgumentNullException("who");
-            }
-
-            if (what == null)
-            {
-                throw new ArgumentNullException("what");
-            }
-
-            Say(String.Format("@{0} {1}", who, what), room);
-        }
-
-        public void PrivateReply(string who, string what)
-        {
-            if (who == null)
-            {
-                throw new ArgumentNullException("who");
-            }
-
-            if (what == null)
-            {
-                throw new ArgumentNullException("what");
-            }
-
-            client.SendPrivateMessage(who, what);
-        }
-
-        /// <summary>
-        /// List of rooms the bot is in.
-        /// </summary>
-        public IEnumerable<string> Rooms
-        {
-            get
-            {
-                return _rooms;
-            }
-        }
-
-        /// <summary>
-        /// Disconnect the bot from the chat session. Leaves all rooms the bot entered
-        /// </summary>
         public void ShutDown()
         {
-            // Leave all the rooms ever joined
-            foreach (var room in _rooms)
-            {
-                client.LeaveRoom(room);
-            }
-
-            client.Disconnect();
-            _isActive = false;
+            _client.Disconnect();
         }
 
-        public void ProcessMessage(Message message, string room)
+        public void JoinRoom(string room)
         {
-            // Run this on another thread since the signalr client doesn't like it
-            // when we spend a long time processing messages synchronously
+            _client.JoinRoom(room);
+        }
+
+        public void CreateRoom(string room)
+        {
+            _client.CreateRoom(room);
+        }
+
+        public void PrivateReply(string toName, string message)
+        {
+            _client.SendPrivateMessage(toName, message);
+        }
+
+        public void Send(string message, string room)
+        {
+            _client.Send(message, room);
+        }
+
+
+        private void ProcessMessage(JabbR.Client.Models.Message message, string room)
+        {
+            Console.WriteLine("{0} {1} {2}", room, message.Content, message.User.Name);
+            if (message.User.Name != Name)
+            {
+                Send("Received " + message.Content + " from " + message.User.Name + " in " + room, room);
+            }
             Task.Factory.StartNew(() =>
             {
                 string content = message.Content;
@@ -279,40 +144,20 @@ namespace Jabbot
                 {
                     return;
                 }
-
-                // We're going to process commands for the bot here
-                var chatMessage = new ChatMessage(WebUtility.HtmlDecode(content), name, room);
-
                 if (MessageReceived != null)
                 {
-                    MessageReceived(chatMessage);
+                    MessageReceived(message, room);
                 }
+
+                ChatMessage chatMessage = new ChatMessage(message.Content, message.User.Name, room);
 
                 bool handled = false;
 
-                // Loop over the registered sprockets
-                foreach (var handler in _sprockets)
-                {
-                    // Stop at the first one that handled the message
-                    if (handler.Handle(chatMessage, this))
-                    {
-                        handled = true;
-                        break;
-                    }
-                }
+                handled = HandleMessageWithSprockets(chatMessage, handled);
 
                 if (!handled)
                 {
-                    // Loop over the unhandled message sprockets
-                    foreach (var handler in _unhandledMessageSprockets)
-                    {
-                        // Stop at the first one that handled the message
-                        if (handler.Handle(chatMessage, this))
-                        {
-                            break;
-                        }
-                    }
-
+                    ProcessUnhandledMessage(chatMessage);
                 }
             })
             .ContinueWith(task =>
@@ -321,67 +166,37 @@ namespace Jabbot
                 if (task.IsFaulted)
                 {
                     Debug.WriteLine("JABBOT: Failed to process messages. {0}", task.Exception.GetBaseException());
+                    Send("JABBOT: Failed to process messages:" + task.Exception.GetBaseException().ToString(), room);
                 }
             });
         }
 
-        private void OnLeave(dynamic user)
+        private void ProcessUnhandledMessage(ChatMessage chatMessage)
         {
-
-        }
-
-        private void OnJoin(dynamic user)
-        {
-
-        }
-
-        private void OnLogOn(IEnumerable<string> rooms)
-        {
-            foreach (var room in rooms)
+            // Loop over the unhandled message sprockets
+            foreach (var handler in _unhandledMessageSprockets)
             {
-                _rooms.Add(room);
+                // Stop at the first one that handled the message
+                if (handler.Handle(chatMessage, this))
+                {
+                    break;
+                }
             }
         }
 
-        private void InitializeContainer()
+        private bool HandleMessageWithSprockets(ChatMessage chatMessage, bool handled)
         {
-            if (!_containerInitialized)
+            // Loop over the registered sprockets
+            foreach (var handler in _sprockets)
             {
-                var container = CreateCompositionContainer();
-                // Add all the sprockets to the sprocket list
-                foreach (var sprocket in container.GetExportedValues<ISprocket>())
+                // Stop at the first one that handled the message
+                if (handler.Handle(chatMessage, this))
                 {
-                    AddSprocket(sprocket);
-                }
-
-                // Add all the sprockets to the sprocket list
-                foreach (var sprocket in container.GetExportedValues<IUnhandledMessageSprocket>())
-                {
-                    AddUnhandledMessageSprocket(sprocket);
-                }
-                _containerInitialized = true;
-            }
-            else
-            {
-                throw new InvalidOperationException("Container already initialized");
-            }
-        }
-
-        private void IntializeSprockets()
-        {
-            var container = CreateCompositionContainer();
-            // Run all sprocket initializers
-            foreach (var sprocketInitializer in container.GetExportedValues<ISprocketInitializer>())
-            {
-                try
-                {
-                    sprocketInitializer.Initialize(this);
-                }
-                catch (Exception ex)
-                {
-                    Trace.WriteLine(String.Format("Unable to Initialize {0}:{1}", sprocketInitializer.GetType().Name, ex.GetBaseException().Message));
+                    handled = true;
+                    break;
                 }
             }
+            return handled;
         }
 
         private CompositionContainer CreateCompositionContainer()
@@ -406,6 +221,62 @@ namespace Jabbot
             }
             return _container;
         }
+
+        private void InitializeContainer()
+        {
+            if (!_containerInitialized)
+            {
+                try
+                {
+                    var container = CreateCompositionContainer();
+                    // Add all the sprockets to the sprocket list
+                    foreach (var sprocket in container.GetExportedValues<ISprocket>())
+                    {
+                        AddSprocket(sprocket);
+                    }
+                    // Add all the sprockets to the sprocket list
+                    foreach (var sprocket in container.GetExportedValues<IUnhandledMessageSprocket>())
+                    {
+                        AddUnhandledMessageSprocket(sprocket);
+                    }
+                    _containerInitialized = true;
+                }
+                catch (ReflectionTypeLoadException ex)
+                {
+                    throw ex.LoaderExceptions.First();
+                }
+                catch (Exception e)
+                {
+                    throw e.GetBaseException();
+                }
+
+            }
+            else
+            {
+                throw new InvalidOperationException("Container already initialized");
+            }
+        }
+
+        /// <summary>
+        /// Run after connection to give sprockets a chance to perform any startup actions
+        /// </summary>
+        private void IntializeSprockets()
+        {
+            var container = CreateCompositionContainer();
+            // Run all sprocket initializers
+            foreach (var sprocketInitializer in container.GetExportedValues<ISprocketInitializer>())
+            {
+                try
+                {
+                    sprocketInitializer.Initialize(this);
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(String.Format("Unable to Initialize {0}:{1}", sprocketInitializer.GetType().Name, ex.GetBaseException().Message));
+                }
+            }
+        }
+
 
 
         /// <summary>
@@ -464,5 +335,7 @@ namespace Jabbot
 
             return Path.Combine(rootPath, ExtensionsFolder);
         }
+
+
     }
 }

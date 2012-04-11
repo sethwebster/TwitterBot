@@ -17,19 +17,26 @@ namespace Jabbot.AspNetBotHost
         private static readonly string _botName = ConfigurationManager.AppSettings["Bot.Name"];
         private static readonly string _botPassword = ConfigurationManager.AppSettings["Bot.Password"];
         private static readonly string _botRooms = ConfigurationManager.AppSettings["Bot.RoomList"];
+        private static readonly string _startMode = ConfigurationManager.AppSettings["Bot.StartMode"];
         private static Bot _bot;
-        private static Bot2 _bot2;
+
         public BotHostModule()
             : base("bot")
         {
-            if (null == _bot2)
-            {
-                _bot2 = new Bot2("testerbot", "123456", _serverUrl);
-                _bot2.PowerUp();
-            }
+            SetupRoutes();
+            AutoStartBotIfRequired();
+        }
 
-            //   if (_bot == null)
-            //     StartBot();
+        private static void AutoStartBotIfRequired()
+        {
+            if (_startMode.Equals("auto", StringComparison.OrdinalIgnoreCase))
+            {
+                StartBot();
+            }
+        }
+
+        private void SetupRoutes()
+        {
             Get["/start"] = _ =>
             {
                 try
@@ -55,35 +62,7 @@ namespace Jabbot.AspNetBotHost
                     return e.Message;
                 }
             };
-
-            Get["/message"] = _ =>
-            {
-                try
-                {
-                    SimulateMessage();
-                    return "Message Simulated";
-                }
-                catch (Exception e)
-                {
-                    var ex = e;
-                    while (ex.InnerException != null)
-                        ex = ex.InnerException;
-                    return ex.ToString();
-                }
-            };
         }
-
-        private static void SimulateMessage()
-        {
-            _bot.ProcessMessage(new Message()
-            {
-                Content = "@twitterbot?",
-                Id = Guid.NewGuid().ToString(),
-                User = new JabbR.Client.Models.User() { Name = "sethwebster" },
-                When = DateTimeOffset.Now
-            }, "twitterbot-admin");
-        }
-
 
         private static void StartBot()
         {
@@ -94,8 +73,7 @@ namespace Jabbot.AspNetBotHost
                 TryShutBotDown();
             }
             _bot = new Bot(_serverUrl, _botName, _botPassword);
-            _bot.PowerUp();
-
+            _bot.StartUp();
             JoinRooms(_bot);
 
         }
@@ -124,7 +102,7 @@ namespace Jabbot.AspNetBotHost
                 Trace.Write("Joining {0}...", room);
                 if (TryCreateRoomIfNotExists(room, bot))
                 {
-                    bot.Join(room);
+                    bot.JoinRoom(room);
                     Trace.WriteLine("OK");
                 }
                 else
