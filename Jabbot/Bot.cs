@@ -104,7 +104,7 @@ namespace Jabbot
                     if (!task.IsFaulted)
                     {
                         LogOnInfo info = task.Result;
-                        IntializeSprockets();
+                       // IntializeSprockets();
                     }
                     else
                     {
