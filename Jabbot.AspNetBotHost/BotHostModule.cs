@@ -18,11 +18,18 @@ namespace Jabbot.AspNetBotHost
         private static readonly string _botPassword = ConfigurationManager.AppSettings["Bot.Password"];
         private static readonly string _botRooms = ConfigurationManager.AppSettings["Bot.RoomList"];
         private static Bot _bot;
+        private static Bot2 _bot2;
         public BotHostModule()
             : base("bot")
         {
-         //   if (_bot == null)
-           //     StartBot();
+            if (null == _bot2)
+            {
+                _bot2 = new Bot2("testerbot", "123456", _serverUrl);
+                _bot2.PowerUp();
+            }
+
+            //   if (_bot == null)
+            //     StartBot();
             Get["/start"] = _ =>
             {
                 try
