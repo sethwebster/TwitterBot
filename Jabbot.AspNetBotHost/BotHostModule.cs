@@ -21,8 +21,8 @@ namespace Jabbot.AspNetBotHost
         public BotHostModule()
             : base("bot")
         {
-            if (_bot == null)
-                StartBot();
+         //   if (_bot == null)
+           //     StartBot();
             Get["/start"] = _ =>
             {
                 try
