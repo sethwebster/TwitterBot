@@ -31,7 +31,8 @@ namespace Jabbot
 
         JabbRClient client;
 
-        private bool isActive = false;
+        private bool _isActive = false;
+        private bool _containerInitialized = false;
 
         public Bot(string url, string name, string password)
         {
@@ -39,12 +40,27 @@ namespace Jabbot
             _password = password;
             _url = url;
             TaskScheduler.UnobservedTaskException += new EventHandler<UnobservedTaskExceptionEventArgs>(TaskScheduler_UnobservedTaskException);
-            //_connection = new HubConnection(url);
-            //_chat = _connection.CreateProxy("JabbR.Chat");
+            InitializeClient();
+            InitializeContainer();
+        }
+
+        private void InitializeClient()
+        {
+            client = new JabbRClient(_url);
+            client.MessageReceived += (message, room) =>
+            {
+                ProcessMessage(message, room);
+            };
+
+            client.UserJoined += (user, message) =>
+            {
+
+            };
+
         }
 
         void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
-        {           
+        {
             e.SetObserved();
         }
 
@@ -77,73 +93,29 @@ namespace Jabbot
         public event Action<ChatMessage> MessageReceived;
 
         /// <summary>
-        /// Add a sprocket to the bot instance
-        /// </summary>
-        public void AddSprocket(ISprocket sprocket)
-        {
-            _sprockets.Add(sprocket);
-        }
-
-        /// <summary>
-        /// Remove a sprocket from the bot instance
-        /// </summary>
-        public void RemoveSprocket(ISprocket sprocket)
-        {
-            _sprockets.Remove(sprocket);
-        }
-
-
-        /// <summary>
-        /// Add a sprocket to the bot instance
-        /// </summary>
-        public void AddUnhandledMessageSprocket(IUnhandledMessageSprocket sprocket)
-        {
-            _unhandledMessageSprockets.Add(sprocket);
-        }
-
-        /// <summary>
-        /// Remove a sprocket from the bot instance
-        /// </summary>
-        public void RemoveUnhandledMessageSprocket(IUnhandledMessageSprocket sprocket)
-        {
-            _unhandledMessageSprockets.Remove(sprocket);
-        }
-
-        /// <summary>
-        /// Remove all sprockets
-        /// </summary>
-        public void ClearSprockets()
-        {
-            _sprockets.Clear();
-        }
-
-        /// <summary>
         /// Connects to the chat session
         /// </summary>
         public void PowerUp()
         {
-            if (!isActive)
+            if (!_isActive)
             {
-                InitializeContainer();
-
-                client = new JabbRClient(_url);
-
-                client.MessageReceived += (message, room) =>
-                {
-                    //ProcessMessage(message, room);
-                };
-
-                client.UserJoined += (user, message) =>
-                {
-
-                };
-
                 client.Connect(Name, _password).ContinueWith(task =>
                 {
-                    LogOnInfo info = task.Result;
-                    //IntializeSprockets();
+                    if (!task.IsFaulted)
+                    {
+                        LogOnInfo info = task.Result;
+                        IntializeSprockets();
+                    }
+                    else
+                    {
+                        Elmah.ErrorSignal.FromCurrentContext().Raise(task.Exception);
+                    }
                 }).Wait();
-                isActive = true;
+                _isActive = true;
+            }
+            else
+            {
+                throw new InvalidOperationException("Bot is already powered up. Call ShutDown first");
             }
             //if (!_connection.IsActive)
             //{
@@ -290,8 +262,8 @@ namespace Jabbot
             }
 
             client.Disconnect();
+            _isActive = false;
         }
-
 
         public void ProcessMessage(Message message, string room)
         {
@@ -373,17 +345,25 @@ namespace Jabbot
 
         private void InitializeContainer()
         {
-            var container = CreateCompositionContainer();
-            // Add all the sprockets to the sprocket list
-            foreach (var sprocket in container.GetExportedValues<ISprocket>())
+            if (!_containerInitialized)
             {
-                AddSprocket(sprocket);
-            }
+                var container = CreateCompositionContainer();
+                // Add all the sprockets to the sprocket list
+                foreach (var sprocket in container.GetExportedValues<ISprocket>())
+                {
+                    AddSprocket(sprocket);
+                }
 
-            // Add all the sprockets to the sprocket list
-            foreach (var sprocket in container.GetExportedValues<IUnhandledMessageSprocket>())
+                // Add all the sprockets to the sprocket list
+                foreach (var sprocket in container.GetExportedValues<IUnhandledMessageSprocket>())
+                {
+                    AddUnhandledMessageSprocket(sprocket);
+                }
+                _containerInitialized = true;
+            }
+            else
             {
-                AddUnhandledMessageSprocket(sprocket);
+                throw new InvalidOperationException("Container already initialized");
             }
         }
 
@@ -426,6 +406,48 @@ namespace Jabbot
             }
             return _container;
         }
+
+
+        /// <summary>
+        /// Add a sprocket to the bot instance
+        /// </summary>
+        public void AddSprocket(ISprocket sprocket)
+        {
+            _sprockets.Add(sprocket);
+        }
+
+        /// <summary>
+        /// Remove a sprocket from the bot instance
+        /// </summary>
+        public void RemoveSprocket(ISprocket sprocket)
+        {
+            _sprockets.Remove(sprocket);
+        }
+
+        /// <summary>
+        /// Add a sprocket to the bot instance
+        /// </summary>
+        public void AddUnhandledMessageSprocket(IUnhandledMessageSprocket sprocket)
+        {
+            _unhandledMessageSprockets.Add(sprocket);
+        }
+
+        /// <summary>
+        /// Remove a sprocket from the bot instance
+        /// </summary>
+        public void RemoveUnhandledMessageSprocket(IUnhandledMessageSprocket sprocket)
+        {
+            _unhandledMessageSprockets.Remove(sprocket);
+        }
+
+        /// <summary>
+        /// Remove all sprockets
+        /// </summary>
+        public void ClearSprockets()
+        {
+            _sprockets.Clear();
+        }
+
 
         private static string GetExtensionsPath()
         {
